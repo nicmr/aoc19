@@ -1,6 +1,9 @@
 module Main where
 
-import Lib
+import qualified Day1
+
 
 main :: IO ()
-main = someFunc
+main = do
+    result <- Day1.run
+    putStrLn result
