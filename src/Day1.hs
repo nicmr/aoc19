@@ -1,6 +1,8 @@
 module Day1
     ( massToFuel
-    , run
+    , recursiveMTF
+    , task1
+    , task2
     ) where
 
 import qualified Data.ByteString as B
@@ -13,12 +15,21 @@ import Data.Maybe (fromMaybe)
 
 import Data.Function ((&))
 
-run :: IO String
-run = do
-    contents <- B.readFile "inputs/Day1.input"
-    let masses = parseContents contents
-    let total = totalFuel masses
-    return (show total)
+task1 :: B.ByteString -> String
+task1 raw_data =
+    let
+        masses = parseContents raw_data
+        total = totalFuel masses
+    in
+        show total
+
+task2 :: B.ByteString -> String
+task2 raw_data =
+    let
+        masses = parseContents raw_data
+        total = totalFuelRecursive masses
+    in
+        show total
 
 linebreak = fromIntegral (Char.ord '\n')
 
@@ -35,6 +46,28 @@ totalFuel masses =
     & map massToFuel
     & foldr (+) 0
 
+
 massToFuel :: Int -> Int
 massToFuel mass =
-    (quot mass 3) - 2
+    maximum [(quot mass 3) - 2, 0]
+
+-- ==============================
+-- recursive functions for Task 2
+-- ==============================
+
+totalFuelRecursive :: [Int] -> Int
+totalFuelRecursive masses =
+    masses
+    & map (\a -> recursiveMTF a 0)
+    & foldr (+) 0
+
+-- let MTF = MassToFuel
+-- should be eligible for TCO
+recursiveMTF :: Int -> Int -> Int
+recursiveMTF mass acc =
+    if mass > 0 then
+        recursiveMTF extraFuel (acc + extraFuel)
+    else
+        acc 
+    where
+        extraFuel = massToFuel mass
