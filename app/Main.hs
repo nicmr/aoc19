@@ -15,6 +15,7 @@ main :: IO ()
 main = do
     args <- getArgs
     let mDay = (Safe.!!) args 0
+    -- convert to index integer
     let mIndex = mDay & fmap read & fmap (subtract 1)
     let mTask = mIndex >>= ((Safe.!!) taskList)
     s <- case mTask of
