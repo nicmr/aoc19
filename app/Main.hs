@@ -1,7 +1,7 @@
 module Main where
 
 import qualified Day1
-
+import qualified Day2
 
 import qualified Data.ByteString as B
 import Data.List.Safe as Safe
@@ -15,7 +15,7 @@ main :: IO ()
 main = do
     args <- getArgs
     let mDay = (Safe.!!) args 0
-    let mIndex = mDay & fmap read & fmap ((-) 1)
+    let mIndex = mDay & fmap read & fmap (subtract 1)
     let mTask = mIndex >>= ((Safe.!!) taskList)
     s <- case mTask of
         Nothing ->
@@ -32,9 +32,17 @@ day1 = do
     putStrLn $ "Second star: " ++ (Day1.task2 contents)
     return "Success"
 
+day2 :: IO String
+day2 = do
+    contents <- B.readFile "inputs/Day2.input"
+    putStrLn $ "First star: " ++ (Day2.task1 contents)
+    putStrLn $ "Second star: " ++ (Day2.task2 contents)
+    return "Success"
+
 taskList :: [IO String]
 taskList = 
     [ day1
+    , day2
     ]
 
 
