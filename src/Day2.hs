@@ -24,7 +24,7 @@ task2 _ = "not yet implemented"
 task1' :: B.ByteString -> Maybe String
 task1' contents = do
     let integers = parseContents contents
-    let modifiedIntegers = replaceNth 2 2 $ replaceNth 12 1 integers
+    let modifiedIntegers = replaceNth 2 2 $ replaceNth 1 12 integers
     a <- runProgram 0 modifiedIntegers
     return (show a)
 
@@ -44,8 +44,6 @@ parseContents contents =
     & map (fromMaybe 0)
 
 comma = fromIntegral (Char.ord ',')
-
-
 
 
 data Op = Add |  Mult | Finish
@@ -100,8 +98,6 @@ step (ProgramState ip program) = do
     let (finished, modified) =  execute program instruction
     return (ProgramState (ip + 4) modified)
     
-
-
 execute :: [Int] -> Instruction -> (Bool, [Int])
 execute p (Instruction op from0 from1 to) =
     case op of
