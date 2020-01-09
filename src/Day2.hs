@@ -26,7 +26,7 @@ task1' contents = do
 
 task2 :: B.ByteString -> String
 task2 contents =
-    "Okay I did this one by hand. Solution is 100 * 98 / 20 = 9820"
+    "Okay I did this one by hand. Solution is 100 * 98 + 20 = 9820"
     -- let
     --     task1result = (fromMaybe [0] (task1' contents)) !! 0
     --     (multiplier, rest) = divMod 19690720 task1result
