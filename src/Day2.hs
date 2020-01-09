@@ -17,10 +17,6 @@ task1 contents =
         Just s -> s
         Nothing -> "failed to run"
 
-
-task2 :: B.ByteString -> String
-task2 _ = "not yet implemented"
-
 task1' :: B.ByteString -> Maybe String
 task1' contents = do
     let integers = parseContents contents
@@ -28,11 +24,11 @@ task1' contents = do
     a <- runProgram 0 modifiedIntegers
     return (show a)
 
-extractTuple4 :: Int -> [a] -> Maybe (a,a,a,a)
-extractTuple4 index list=
-    case splitAt index list of
-        (_, (a:(b:(c:(d:xs))))) -> Just (a,b,c,d)
-        _ -> Nothing
+
+
+
+task2 :: B.ByteString -> String
+task2 _ = "not yet implemented"
 
 parseContents :: B.ByteString -> [Int]
 parseContents contents =
@@ -64,6 +60,12 @@ maybeSmaller x y =
         Just x
     else
         Nothing
+
+extractTuple4 :: Int -> [a] -> Maybe (a,a,a,a)
+extractTuple4 index list=
+    case splitAt index list of
+        (_, (a:(b:(c:(d:xs))))) -> Just (a,b,c,d)
+        _ -> Nothing
 
 buildInstruction :: Int -> (Int, Int, Int, Int) -> Maybe Instruction
 buildInstruction maxAddr (op, from0, from1, to) = do
