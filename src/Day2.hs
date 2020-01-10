@@ -21,7 +21,7 @@ task1' :: B.ByteString -> Maybe String
 task1' contents = do
     let integers = parseContents contents
     let modifiedIntegers = replaceNth 2 2 $ replaceNth 1 12 integers
-    a <- runProgram 0 modifiedIntegers
+    a <- runProgram (ProgramState 0 modifiedIntegers)
     return (show a)
 
 
@@ -76,29 +76,36 @@ buildInstruction maxAddr (op, from0, from1, to) = do
     to' <- validAddress to
     return (Instruction op' from0' from1' to')
 
-runProgram ::  Int -> [Int] ->  Maybe [Int]
-runProgram _ [] = Just []
+-- ProgramState ip program
 -- ip = instruction pointer
-runProgram ip program = do
-    validIP <- maybeSmaller ip (length program)
-    tuple <- extractTuple4 validIP program
-    instruction <- buildInstruction (length program * 4) tuple
-    let (finished, modified) =  execute program instruction
-    finalProgram <- case finished of
-        True -> pure modified
-        False -> runProgram (ip + 4) modified
-    return finalProgram
-
 data ProgramState = ProgramState Int [Int]
     deriving Show
 
-step :: ProgramState -> Maybe ProgramState
+runProgram ::  ProgramState ->  Maybe ProgramState
+runProgram (ProgramState ip []) = Just (ProgramState ip [])
+runProgram programState = do
+    -- validIP <- maybeSmaller ip (length program)
+    -- tuple <- extractTuple4 validIP program
+    -- instruction <- buildInstruction (length program * 4) tuple
+    -- let (finished, modified) =  execute program instruction
+    -- finalProgram <- case finished of
+    --     True -> pure modified
+    --     False -> runProgram (ip + 4) modified
+    (isFinished, modified) <- step programState
+    finalProgram <- case isFinished of
+        True -> pure modified
+        False -> runProgram modified
+    return finalProgram
+
+
+
+step :: ProgramState -> Maybe (Bool, ProgramState)
 step (ProgramState ip program) = do
     validIP <- maybeSmaller ip (length program)
     tuple <- extractTuple4 validIP program
     instruction <- buildInstruction (length program * 4) tuple
     let (finished, modified) =  execute program instruction
-    return (ProgramState (ip + 4) modified)
+    return (finished, ProgramState (ip + 4) modified)
     
 execute :: [Int] -> Instruction -> (Bool, [Int])
 execute p (Instruction op from0 from1 to) =
