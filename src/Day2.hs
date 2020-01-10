@@ -17,20 +17,13 @@ task1 contents =
         Just result -> show result
         Nothing -> "failed to run"
 
-task1' :: B.ByteString -> Maybe [Int]
+task1' :: B.ByteString -> Maybe ProgramState
 task1' contents = do
     let integers = parseContents contents
     let modifiedIntegers = replaceNth 2 2 $ replaceNth 1 12 integers
-<<<<<<< HEAD
     a <- runProgram (ProgramState 0 modifiedIntegers)
-    return (show a)
-
-
-
-=======
-    a <- runProgram 0 modifiedIntegers
     return a
->>>>>>> 1d2bffdedf8aed32da86df237c35b8ec2367afe7
+
 
 task2 :: B.ByteString -> String
 task2 contents =
@@ -98,13 +91,6 @@ data ProgramState = ProgramState Int [Int]
 runProgram ::  ProgramState ->  Maybe ProgramState
 runProgram (ProgramState ip []) = Just (ProgramState ip [])
 runProgram programState = do
-    -- validIP <- maybeSmaller ip (length program)
-    -- tuple <- extractTuple4 validIP program
-    -- instruction <- buildInstruction (length program * 4) tuple
-    -- let (finished, modified) =  execute program instruction
-    -- finalProgram <- case finished of
-    --     True -> pure modified
-    --     False -> runProgram (ip + 4) modified
     (isFinished, modified) <- step programState
     finalProgram <- case isFinished of
         True -> pure modified
