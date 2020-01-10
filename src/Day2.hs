@@ -14,21 +14,35 @@ import Data.Function ((&))
 task1 :: B.ByteString -> String
 task1 contents =
     case task1' contents of
-        Just s -> s
+        Just result -> show result
         Nothing -> "failed to run"
 
-task1' :: B.ByteString -> Maybe String
+task1' :: B.ByteString -> Maybe [Int]
 task1' contents = do
     let integers = parseContents contents
     let modifiedIntegers = replaceNth 2 2 $ replaceNth 1 12 integers
+<<<<<<< HEAD
     a <- runProgram (ProgramState 0 modifiedIntegers)
     return (show a)
 
 
 
+=======
+    a <- runProgram 0 modifiedIntegers
+    return a
+>>>>>>> 1d2bffdedf8aed32da86df237c35b8ec2367afe7
 
 task2 :: B.ByteString -> String
-task2 _ = "not yet implemented"
+task2 contents =
+    "Okay I did this one by hand. Solution is 100 * 98 + 20 = 9820"
+    -- let
+    --     task1result = (fromMaybe [0] (task1' contents)) !! 0
+    --     (multiplier, rest) = divMod 19690720 task1result
+    -- in
+    --     "multiplier: " ++ (show multiplier) ++ "\n" 
+    --     ++ "rest: " ++ (show rest) ++ "\n" 
+    --     ++ "answer: " ++ show (100 * 12 * multiplier + rest)
+
 
 parseContents :: B.ByteString -> [Int]
 parseContents contents =
