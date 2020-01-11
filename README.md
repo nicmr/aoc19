@@ -10,7 +10,8 @@ My solutions to the [Advent of code 2019](https://adventofcode.com/2019) program
 ## What I learned so far
 
 - Get comfortable with `Monad`, `Functor`, `Applicative`
-- Parsing Combinators with `megaparsec`
+- Basic Parsing Combinators with `megaparsec` . Previously I only had experience with ReadP.
+- Testing with `tasty` and `tasty-hunit`
 
 
 ## View my solutions 
@@ -18,17 +19,15 @@ My solutions to the [Advent of code 2019](https://adventofcode.com/2019) program
 All implementations can be found in [./src/](./src).  
 Generally the solution for *day x* will correspond to a `DayX.hs` source file.
 
-If IO is required, it is handled in [./app/Main.hs](./app/Main.hs) to keep the solutions completely pure.
-
 ## How to run my solutions
 ```zsh
-stack run -- DAY
+stack run DAY
 ```
 
 e.g. for day 1
 
 ```zsh
-stack run -- 1
+stack run 1
 ```
 
 

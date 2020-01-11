@@ -44,4 +44,26 @@ If there's only the recursive function, it's really hard to see what's going on 
 
 ## Day 3
 
-WIP
+I took way too long for this one and I made tons of mistakes.
+The biggest problem was probably not knowing list comprehensions well enough:
+```
+-- the bug
+[x | x <- [20..10]]
+
+-- result: []
+
+-- correct approach
+
+[x | x <-  [20,19..10]]
+
+-- result: [1,0,-1,-2,-3,-4,-5,-6,-7,-8,-9,-10]
+```
+As it doesn't crash and just return empty lists, it silently messed up all the data strucutres relying on list comprehensions. Ouchies.
+
+Something I believe I've been doing wrong all along is writing a "pure main" that composes all other pure functions, and calling only that "pure main" from my actual `IO` main.
+That sucks bigtime when composing everything in the pure main and only returning insufficient information (worst case: `Nothing`), effectively losing all the information where something went wrong along the way.
+
+`tasty-hunit` for testing is great!!! It reminds me a lot of elm-test. I'd also like to try out `quickcheck` soon.
+Maybe TDD-ish approaches will be effective for the next exercises.
+
+My program also took almost 18 minutes to run and allocated about 400 mb. I'm not sure how I can reach a more efficient implementation with Haskell (I'd certainly know how to approach it in Rust).
