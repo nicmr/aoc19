@@ -1,6 +1,5 @@
 {-# LANGUAGE StrictData #-}
 
-
 module Day3 where
 
 import qualified Data.ByteString as B
@@ -8,13 +7,10 @@ import qualified Data.ByteString.Char8 as Char8
 import qualified Data.Char as Char
 
 import Data.List (foldl', intersect, minimumBy)
-
 import Data.Function ((&))
-import Text.Megaparsec.Char (newline)
-
 import Data.Void (Void)
 
-
+import Text.Megaparsec.Char (newline)
 import Text.Megaparsec
 
 
@@ -25,7 +21,6 @@ task1 contents =
         case task1' as_string of
             Left error -> "Error: " ++ error
             Right ok -> show $ ok
-
 
 task1' :: String -> Either String Int
 task1' contents =
@@ -48,11 +43,9 @@ task2 :: B.ByteString -> String
 task2 _ = 
     "not yet implemented"
 
-
 toString :: B.ByteString -> String
 toString bytes = do
     Char8.unpack bytes
-
 
 type Parser = Parsec Void String
 
@@ -62,7 +55,6 @@ data Direction = GoUp | GoDown | GoLeft | GoRight
 
 data Segment = Segment Direction Int
     deriving (Show, Eq)
-
 
 parseUp :: Parser Direction
 parseUp = do
@@ -110,7 +102,6 @@ parseContents = do
     eof
     return [first, second]
 
-
 trace :: [(Int, Int)] -> Segment -> [(Int, Int)]
 -- we can't trace without start values
 trace [] _  = []
@@ -125,11 +116,9 @@ trace acc (Segment direction distance)=
     in
         acc ++ nextSteps
 
-
 manhattanOrdering :: (Int, Int) -> (Int, Int) -> Ordering
 manhattanOrdering a b =
     compare (manhattanDistance a) (manhattanDistance b)
-
 
 manhattanDistance :: (Int, Int) -> Int
 manhattanDistance (x,y) =
