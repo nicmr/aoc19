@@ -2,6 +2,8 @@ module Main where
 
 import qualified Day1
 import qualified Day2
+import qualified Day3
+
 
 import qualified Data.ByteString as B
 import Data.List.Safe as Safe
@@ -40,10 +42,18 @@ day2 = do
     putStrLn $ "Second star: " ++ (Day2.task2 contents)
     return "Success"
 
+day3 :: IO String
+day3 = do
+    contents <- B.readFile "inputs/Day3.input"
+    putStrLn $ "First star: " ++ (Day3.task1 contents)
+    putStrLn $ "Second star: " ++ (Day3.task2 contents)
+    return "Success"
+
 taskList :: [IO String]
 taskList = 
     [ day1
     , day2
+    , day3
     ]
 
 
