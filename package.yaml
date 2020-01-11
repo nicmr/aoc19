@@ -49,3 +49,5 @@ tests:
     - -with-rtsopts=-N
     dependencies:
     - aoc19
+    - tasty >= 1.2.3 && < 2
+    - tasty-hunit >= 0.10.0.2 && < 1

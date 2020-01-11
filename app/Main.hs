@@ -6,7 +6,7 @@ import qualified Day3
 
 
 import qualified Data.ByteString as B
-import Data.List.Safe as Safe
+import qualified Data.List.Safe as Safe
 import Data.Function ((&))
 
 
