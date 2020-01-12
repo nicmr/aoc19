@@ -67,3 +67,14 @@ That sucks bigtime when composing everything in the pure main and only returning
 Maybe TDD-ish approaches will be effective for the next exercises.
 
 My program also took almost 18 minutes to run and allocated about 400 mb. I'm not sure how I can reach a more efficient implementation with Haskell (I'd certainly know how to approach it in Rust).
+
+
+## Day4
+
+The first task was an absolute breeze, completed it in 15 minutes.
+List comprehensions in haskell are perfect for this.
+The performance is also surprisingly good, considering it's not a mathematical approach but rather trial-and-filter.
+I'm pretty sure it's possible to write a proper mathematical alogorithm and wrote down some basic ideas, but I don't have the time today to work that out.
+
+For the second task, I solved the doubles-but-not-triples part of the exercise using `Data.Array`. The syntax seemed a bit verbose at first compared to imperative languages but overall it made a lot of sense to me.
+Great fun.
