@@ -3,6 +3,8 @@ module Main where
 import qualified Day1
 import qualified Day2
 import qualified Day3
+import qualified Day4
+
 
 
 import qualified Data.ByteString as B
@@ -49,11 +51,18 @@ day3 = do
     putStrLn $ "Second star: " ++ (Day3.task2 contents)
     return "Success"
 
+day4 :: IO String
+day4 = do
+    putStrLn $ "First star: " ++ (Day4.task1)
+    putStrLn $ "Second star: " ++ (Day4.task2)
+    return "Success"
+
 taskList :: [IO String]
 taskList = 
     [ day1
     , day2
     , day3
+    , day4
     ]
 
 
