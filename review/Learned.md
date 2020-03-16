@@ -78,3 +78,27 @@ I'm pretty sure it's possible to write a proper mathematical alogorithm and wrot
 
 For the second task, I solved the doubles-but-not-triples part of the exercise using `Data.Array`. The syntax seemed a bit verbose at first compared to imperative languages but overall it made a lot of sense to me.
 Great fun.
+
+
+
+## Day6
+
+I got stuck too long trying to solve the problem with trees. Unfortunately, due to the unsorted nature of the input, building the tree requires a lot of modifying stuff in place - which is very annoying in Haskell.
+I eventually opted for not using trees at all and implemented it with a very neat hashmap solution.
+
+For task 2, I first had the most ugly Either / Maybe case handling you could imagine.
+I wasn't sure how to use a do monad when the types of the Either / Maybe function calls do not match the type parameteres of the surrounding function. I tried solving it with fmap but that only helps as long as you need to work with one Functor at a time... Fortunately, I eventually discovered `Bifunctor` and wrote a short function for escalating Maybes into eithers. I'm quite happy with the result:
+
+```haskell
+task2' :: String -> Either String String
+task2' input = do
+    orbits <- first (show) $ parse parseOrbits "" input 
+    -- create hashmap from orbits
+    let orbitmap = foldl' (\hashmap (center, orbit) -> Map.alter (appendOrCreate orbit) center hashmap) Map.empty orbits
+    -- calculate paths to root
+    pathToSanta <- toEither "failure at Path to Santa" $ path "COM" "SAN" [] orbitmap
+    pathToYou <- toEither "failure at Path to You" $ path "COM" "YOU" [] orbitmap
+    -- find index of split node
+    (indexSan, indexYou) <- toEither "unable to find shared member" $ firstSharedMemberIndices pathToSanta pathToYou
+    pure $ foldl' (++) "" [show pathToSanta, "and ", show pathToYou, "\nTransfers required:", show (indexSan + indexYou)] 
+```

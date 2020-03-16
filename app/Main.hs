@@ -4,7 +4,7 @@ import qualified Day1
 import qualified Day2
 import qualified Day3
 import qualified Day4
-
+import qualified Day6
 
 
 import qualified Data.ByteString as B
@@ -30,32 +30,48 @@ main = do
     putStrLn s
     putStrLn "done."
 
+
+star1 = "First star: "
+star2 = "Second star: "
+
 day1 :: IO String
 day1 = do
     contents <- B.readFile "inputs/Day1.input"
-    putStrLn $ "First star: " ++ (Day1.task1 contents)
-    putStrLn $ "Second star: " ++ (Day1.task2 contents)
+    putStrLn $ star1 ++ (Day1.task1 contents)
+    putStrLn $ star2 ++ (Day1.task2 contents)
     return "Success"
 
 day2 :: IO String
 day2 = do
     contents <- B.readFile "inputs/Day2.input"
-    putStrLn $ "First star: " ++ (Day2.task1 contents)
-    putStrLn $ "Second star: " ++ (Day2.task2 contents)
+    putStrLn $ star1 ++ (Day2.task1 contents)
+    putStrLn $ star2 ++ (Day2.task2 contents)
     return "Success"
 
 day3 :: IO String
 day3 = do
     contents <- B.readFile "inputs/Day3.input"
-    putStrLn $ "First star: " ++ (Day3.task1 contents)
-    putStrLn $ "Second star: " ++ (Day3.task2 contents)
+    putStrLn $ star1 ++ (Day3.task1 contents)
+    putStrLn $ star2 ++ (Day3.task2 contents)
     return "Success"
 
 day4 :: IO String
 day4 = do
-    putStrLn $ "First star: " ++ (Day4.task1)
-    putStrLn $ "Second star: " ++ (Day4.task2)
+    putStrLn $ star1 ++ (Day4.task1)
+    putStrLn $ star2 ++ (Day4.task2)
     return "Success"
+
+day6 :: IO String
+day6 = do
+    testInput <- readFile "inputs/test/Day6.test"
+    testInput2 <- readFile "inputs/test/Day6.task2.test"
+    input <- readFile "inputs/Day6.input"
+    putStrLn $ "Task 1 test values: " ++ (Day6.task1 testInput)
+    putStrLn $ star1 ++ (Day6.task1 input)
+    -- putStrLn $ "Task 2 test values: " ++ (Day6.task2 testInput2)
+    putStrLn $ star2 ++ (Day6.task2 input)
+    return "Success"
+
 
 taskList :: [IO String]
 taskList = 
@@ -63,6 +79,5 @@ taskList =
     , day2
     , day3
     , day4
+    , day6
     ]
-
-
